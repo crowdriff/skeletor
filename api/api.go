@@ -16,6 +16,7 @@ func New() http.Handler {
 
 	// Mount request handlers
 	r.Get("/", defaultHandler)
+	r.Get("/version", defaultHandler)
 
 	return r
 }

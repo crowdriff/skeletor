@@ -2,7 +2,8 @@ package skeletor
 
 // Conf represents all the runtime flags passed to the binary.
 type Conf struct {
-	Prod bool
+	Prod    bool
+	Version string
 }
 
 var conf *Conf
@@ -15,4 +16,9 @@ func SaveConf(c *Conf) {
 // GetConf returns a copy of the parsed conf.
 func GetConf() Conf {
 	return *conf
+}
+
+// Version returns the version
+func Version() string {
+	return conf.Version
 }
