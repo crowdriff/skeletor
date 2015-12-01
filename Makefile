@@ -1,4 +1,4 @@
-version=0.1.0
+version=0.2.0
 name=skeletor
 vcs=github.com/crowdriff/$(name)
 
@@ -26,18 +26,18 @@ all:
 build: clean
 	@go vet ./...
 	@golint ./...
-	@go build -o ./bin/$(name)-$(version).bin main.go
+	@go build -o ./bin/$(name)-$(version).bin -ldflags "-X main.version=$(version)" main.go
 
 build_linux: clean
 	@go vet ./...
 	@golint ./...
-	@GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./bin/$(name)-$(version).bin main.go
+	@GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./bin/$(name)-$(version).bin "-X main.version=$(version)" main.go
 
 clean:
 	@rm -rf ./bin
 
 coverage:
-	go test -p=1 -cover -v ./...
+	@ginkgo -cover -r -v
 
 deps:
 	@glock sync -n $(vcs) < Glockfile

@@ -10,18 +10,20 @@ import (
 )
 
 type defaultRes struct {
-	Prod   bool   `json:"prod"`
-	Status string `json:"status"`
+	Prod    bool   `json:"prod"`
+	Status  string `json:"status"`
+	Version string `json:"version"`
 }
 
-// defaultHandler handles HTTP requests for /
+// defaultHandler handles HTTP requests for / & /version
 func defaultHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	conf := skeletor.GetConf()
 	res, err := json.Marshal(defaultRes{
-		Prod:   conf.Prod,
-		Status: "ok",
+		Status:  "ok",
+		Prod:    conf.Prod,
+		Version: conf.Version,
 	})
 
 	if err != nil {
